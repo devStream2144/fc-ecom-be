@@ -1,0 +1,286 @@
+{
+  "info": {
+    "name": "fc-ecom",
+    "_postman_id": "48510a66-a00a-4ffa-a974-dfa6fd20b9fe",
+    "description": "Collection exported from Thunder Client",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Get all users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2NmJiMzkzZWFlNTIyMjA0MjQ2YWE5OGEiLCJmdWxsbmFtZSI6ImpvaG4gZGVvIiwidXNlcm5hbWUiOiJqb2huZG9lIiwicGFzc3dvcmQiOiJKb2huQDEyMyIsInJvbGVzIjpbeyJyb2xlIjoidXNlciIsImlkIjoiNzc3OTIxMjEyOTA5MDExMSIsIl9pZCI6IjY2YmIzOTNlYWU1MjIyMDQyNDZhYTk4YiJ9XSwiaXNEZWxldGVkIjpmYWxzZSwiY3JlYXRlZEF0IjoiMjAyNC0wOC0xM1QxMDo0NToxMi43NzhaIiwiX192IjowfQ.I-90kk6q9HYy1nPAILl1dUiZGOmxKYl4CTUR0bhoSAI"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8000/user/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["user", ""]
+            }
+          }
+        },
+        {
+          "name": "Get user by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2NmJiMzkzZWFlNTIyMjA0MjQ2YWE5OGEiLCJmdWxsbmFtZSI6ImpvaG4gZGVvIiwidXNlcm5hbWUiOiJqb2huZG9lIiwicGFzc3dvcmQiOiJKb2huQDEyMyIsInJvbGVzIjpbeyJyb2xlIjoidXNlciIsImlkIjoiNzc3OTIxMjEyOTA5MDExMSIsIl9pZCI6IjY2YmIzOTNlYWU1MjIyMDQyNDZhYTk4YiJ9XSwiaXNEZWxldGVkIjpmYWxzZSwiY3JlYXRlZEF0IjoiMjAyNC0wOC0xM1QxMDo0NToxMi43NzhaIiwiX192IjowfQ.I-90kk6q9HYy1nPAILl1dUiZGOmxKYl4CTUR0bhoSAI"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8000/user/66b9ea225ec1361c96091159",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["user", ""]
+            }
+          }
+        },
+        {
+          "name": "User login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2NmJiMzkzZWFlNTIyMjA0MjQ2YWE5OGEiLCJmdWxsbmFtZSI6ImpvaG4gZGVvIiwidXNlcm5hbWUiOiJqb2huZG9lIiwicGFzc3dvcmQiOiJKb2huQDEyMyIsInJvbGVzIjpbeyJyb2xlIjoidXNlciIsImlkIjoiNzc3OTIxMjEyOTA5MDExMSIsIl9pZCI6IjY2YmIzOTNlYWU1MjIyMDQyNDZhYTk4YiJ9XSwiaXNEZWxldGVkIjpmYWxzZSwiY3JlYXRlZEF0IjoiMjAyNC0wOC0xM1QxMDo0NToxMi43NzhaIiwiX192IjowfQ.I-90kk6q9HYy1nPAILl1dUiZGOmxKYl4CTUR0bhoSAI"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "raw": "{\n  \"username\":\"johndoe\",\n  \"password\":\"John@123\"\n}",
+              "form": []
+            },
+            "url": {
+              "raw": "http://localhost:8000/user/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["user", ""]
+            }
+          }
+        },
+        {
+          "name": "Update user",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2NmJiMzkzZWFlNTIyMjA0MjQ2YWE5OGEiLCJmdWxsbmFtZSI6ImpvaG4gZGVvIiwidXNlcm5hbWUiOiJqb2huZG9lIiwicGFzc3dvcmQiOiJKb2huQDEyMyIsInJvbGVzIjpbeyJyb2xlIjoidXNlciIsImlkIjoiNzc3OTIxMjEyOTA5MDExMSIsIl9pZCI6IjY2YmIzOTNlYWU1MjIyMDQyNDZhYTk4YiJ9XSwiaXNEZWxldGVkIjpmYWxzZSwiY3JlYXRlZEF0IjoiMjAyNC0wOC0xM1QxMDo0NToxMi43NzhaIiwiX192IjowfQ.I-90kk6q9HYy1nPAILl1dUiZGOmxKYl4CTUR0bhoSAI"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "raw": "{\n  \"fullname\": \"vector doom\",\n  \"username\": \"drdoom\",\n  \"password\": \"Doom@123\",\n  \"roles\": [\n    {\n      \"role\": \"superadmin\",\n      \"id\": \"1\"\n    },\n    {\n      \"role\": \"admin\",\n      \"id\": \"2\"\n    },\n    {\n      \"role\": \"user\",\n      \"id\": \"3\"\n    }\n  ]\n}",
+              "form": []
+            },
+            "url": {
+              "raw": "http://localhost:8000/user/66bc70d2e508c54f676fb090",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["user", ""]
+            }
+          }
+        },
+        {
+          "name": "Delete user",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2NmJiMzkzZWFlNTIyMjA0MjQ2YWE5OGEiLCJmdWxsbmFtZSI6ImpvaG4gZGVvIiwidXNlcm5hbWUiOiJqb2huZG9lIiwicGFzc3dvcmQiOiJKb2huQDEyMyIsInJvbGVzIjpbeyJyb2xlIjoidXNlciIsImlkIjoiNzc3OTIxMjEyOTA5MDExMSIsIl9pZCI6IjY2YmIzOTNlYWU1MjIyMDQyNDZhYTk4YiJ9XSwiaXNEZWxldGVkIjpmYWxzZSwiY3JlYXRlZEF0IjoiMjAyNC0wOC0xM1QxMDo0NToxMi43NzhaIiwiX192IjowfQ.I-90kk6q9HYy1nPAILl1dUiZGOmxKYl4CTUR0bhoSAI"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "raw": "{\n  \"fullname\": \"john deo\",\n  \"username\": \"johndoe\",\n  \"password\": \"John@123\",\n  \"roles\": [\n    {\n      \"role\": \"user\",\n      \"id\": \"7779212129090111\"\n    }\n  ]\n}",
+              "form": []
+            },
+            "url": {
+              "raw": "http://localhost:8000/user/66b9e9401e08572313614b2c",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["user", ""]
+            }
+          }
+        },
+        {
+          "name": "Add new user",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "authorization",
+                "value": "eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2NmJiMzkzZWFlNTIyMjA0MjQ2YWE5OGEiLCJmdWxsbmFtZSI6ImpvaG4gZGVvIiwidXNlcm5hbWUiOiJqb2huZG9lIiwicGFzc3dvcmQiOiJKb2huQDEyMyIsInJvbGVzIjpbeyJyb2xlIjoidXNlciIsImlkIjoiNzc3OTIxMjEyOTA5MDExMSIsIl9pZCI6IjY2YmIzOTNlYWU1MjIyMDQyNDZhYTk4YiJ9XSwiaXNEZWxldGVkIjpmYWxzZSwiY3JlYXRlZEF0IjoiMjAyNC0wOC0xM1QxMDo0NToxMi43NzhaIiwiX192IjowfQ.I-90kk6q9HYy1nPAILl1dUiZGOmxKYl4CTUR0bhoSAI"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n \"fullname\": \"Toney stark\",\n \"username\": \"ironman\",\n \"password\": \"Toney@123\",\n \"roles\": [\n {\n \"role\": \"admin\",\n \"id\": \"2\"\n }\n ]\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8000/user",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["user"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User profile",
+      "item": [
+        {
+          "name": "Add user profile",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "authorization",
+                "value": "eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2NmJiMzkzZWFlNTIyMjA0MjQ2YWE5OGEiLCJmdWxsbmFtZSI6ImpvaG4gZGVvIiwidXNlcm5hbWUiOiJqb2huZG9lIiwicGFzc3dvcmQiOiJKb2huQDEyMyIsInJvbGVzIjpbeyJyb2xlIjoidXNlciIsImlkIjoiNzc3OTIxMjEyOTA5MDExMSIsIl9pZCI6IjY2YmIzOTNlYWU1MjIyMDQyNDZhYTk4YiJ9XSwiaXNEZWxldGVkIjpmYWxzZSwiY3JlYXRlZEF0IjoiMjAyNC0wOC0xM1QxMDo0NToxMi43NzhaIiwiX192IjowfQ.I-90kk6q9HYy1nPAILl1dUiZGOmxKYl4CTUR0bhoSAI"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n \"userId\":\"66bc70d2e508c54f676fb090\",\n \"picture\": \"profile.jpg\",\n \"phone\":{\n \"primary\": 9876543210,\n \"alternate\": 8876876565\n },\n \"gmail\": \"drdoom@gmail.com\",\n \"address\": {\n \"line1\": \"Kingdom of Latveria\",\n \"line2\": \"Latveria\",\n \"landmark\": \"\",\n \"city\": \"Latveria\",\n \"state\": \"America\",\n \"zip\": 33445241,\n \"country\": \"US\"\n },\n \"sizes\": {\n \"foot\": 45,\n \"legs\": 32,\n \"body\": 70\n }\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8000/user-profile",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["user-profile"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Category",
+      "item": [
+        {
+          "name": "Get all category",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "authorization",
+                "value": "eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2NmJiMzkzZWFlNTIyMjA0MjQ2YWE5OGEiLCJmdWxsbmFtZSI6ImpvaG4gZGVvIiwidXNlcm5hbWUiOiJqb2huZG9lIiwicGFzc3dvcmQiOiJKb2huQDEyMyIsInJvbGVzIjpbeyJyb2xlIjoidXNlciIsImlkIjoiNzc3OTIxMjEyOTA5MDExMSIsIl9pZCI6IjY2YmIzOTNlYWU1MjIyMDQyNDZhYTk4YiJ9XSwiaXNEZWxldGVkIjpmYWxzZSwiY3JlYXRlZEF0IjoiMjAyNC0wOC0xM1QxMDo0NToxMi43NzhaIiwiX192IjowfQ.I-90kk6q9HYy1nPAILl1dUiZGOmxKYl4CTUR0bhoSAI"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8000/category",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["category"]
+            }
+          }
+        },
+        {
+            "name": "Get category",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "authorization",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2NmJiMzkzZWFlNTIyMjA0MjQ2YWE5OGEiLCJmdWxsbmFtZSI6ImpvaG4gZGVvIiwidXNlcm5hbWUiOiJqb2huZG9lIiwicGFzc3dvcmQiOiJKb2huQDEyMyIsInJvbGVzIjpbeyJyb2xlIjoidXNlciIsImlkIjoiNzc3OTIxMjEyOTA5MDExMSIsIl9pZCI6IjY2YmIzOTNlYWU1MjIyMDQyNDZhYTk4YiJ9XSwiaXNEZWxldGVkIjpmYWxzZSwiY3JlYXRlZEF0IjoiMjAyNC0wOC0xM1QxMDo0NToxMi43NzhaIiwiX192IjowfQ.I-90kk6q9HYy1nPAILl1dUiZGOmxKYl4CTUR0bhoSAI"
+                }
+              ],
+              "url": {
+                "raw": "http://localhost:8000/category/66b4deaf7255afe4195aff86",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "8000",
+                "path": ["category"]
+              }
+            }
+          },
+        {
+            "name": "Add category",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "authorization",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2NmJiMzkzZWFlNTIyMjA0MjQ2YWE5OGEiLCJmdWxsbmFtZSI6ImpvaG4gZGVvIiwidXNlcm5hbWUiOiJqb2huZG9lIiwicGFzc3dvcmQiOiJKb2huQDEyMyIsInJvbGVzIjpbeyJyb2xlIjoidXNlciIsImlkIjoiNzc3OTIxMjEyOTA5MDExMSIsIl9pZCI6IjY2YmIzOTNlYWU1MjIyMDQyNDZhYTk4YiJ9XSwiaXNEZWxldGVkIjpmYWxzZSwiY3JlYXRlZEF0IjoiMjAyNC0wOC0xM1QxMDo0NToxMi43NzhaIiwiX192IjowfQ.I-90kk6q9HYy1nPAILl1dUiZGOmxKYl4CTUR0bhoSAI"
+                }
+              ],
+              "body": {
+                "type": "json",
+                "raw": " {\n   \"category\": \"\",\n   \"subcategory\": [\n    {\n      \"name\": \"dry fruits\"\n    },\n    {\n      \"name\": \"dals\"\n    }\n  ]\n }",
+                "form": []
+            },
+              "url": {
+                "raw": "http://localhost:8000/category",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "8000",
+                "path": ["category"]
+              }
+            }
+          },
+          {
+            "name": "Update category",
+            "request": {
+              "method": "PATCH",
+              "header": [
+                {
+                  "key": "authorization",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2NmJiMzkzZWFlNTIyMjA0MjQ2YWE5OGEiLCJmdWxsbmFtZSI6ImpvaG4gZGVvIiwidXNlcm5hbWUiOiJqb2huZG9lIiwicGFzc3dvcmQiOiJKb2huQDEyMyIsInJvbGVzIjpbeyJyb2xlIjoidXNlciIsImlkIjoiNzc3OTIxMjEyOTA5MDExMSIsIl9pZCI6IjY2YmIzOTNlYWU1MjIyMDQyNDZhYTk4YiJ9XSwiaXNEZWxldGVkIjpmYWxzZSwiY3JlYXRlZEF0IjoiMjAyNC0wOC0xM1QxMDo0NToxMi43NzhaIiwiX192IjowfQ.I-90kk6q9HYy1nPAILl1dUiZGOmxKYl4CTUR0bhoSAI"
+                }
+              ],
+              "body": {
+                "type": "json",
+                "raw": " {\n   \"category\": \"junkfood\",\n   \"subcategory\": [\n    {\n      \"name\": \"steamed\"\n    },\n    {\n      \"name\": \"fried\"\n    }\n  ]\n }",
+                "form": []
+            },
+              "url": {
+                "raw": "http://localhost:8000/category/66b5c8569d5b03bf436a07e6",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "8000",
+                "path": ["category"]
+              }
+            }
+          },
+          {
+            "name": "Delete Catagory",
+            "request": {
+              "method": "DELETE",
+              "header": [
+                {
+                  "key": "authorization",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2NmJiMzkzZWFlNTIyMjA0MjQ2YWE5OGEiLCJmdWxsbmFtZSI6ImpvaG4gZGVvIiwidXNlcm5hbWUiOiJqb2huZG9lIiwicGFzc3dvcmQiOiJKb2huQDEyMyIsInJvbGVzIjpbeyJyb2xlIjoidXNlciIsImlkIjoiNzc3OTIxMjEyOTA5MDExMSIsIl9pZCI6IjY2YmIzOTNlYWU1MjIyMDQyNDZhYTk4YiJ9XSwiaXNEZWxldGVkIjpmYWxzZSwiY3JlYXRlZEF0IjoiMjAyNC0wOC0xM1QxMDo0NToxMi43NzhaIiwiX192IjowfQ.I-90kk6q9HYy1nPAILl1dUiZGOmxKYl4CTUR0bhoSAI"
+                }
+              ],
+              "url": {
+                "raw": "http://localhost:8000/category/66b9b8d68cb645121e94085d",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "8000",
+                "path": ["category"]
+              }
+            }
+          }
+      ]
+    }
+  ]
+}
