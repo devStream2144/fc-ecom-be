@@ -6,6 +6,10 @@ const productSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+    required: true,
+  },
   price: {
     original: {
       type: Number,
@@ -25,6 +29,20 @@ const productSchema = mongoose.Schema({
     required: true,
   },
   size: {
+    type: Number,
+    required: true,
+  },
+  other: {
+    liked: {
+      type: Number,
+      required: true,
+    },
+    disliked: {
+      type: Number,
+      required: true,
+    },
+  },
+  buyed: {
     type: Number,
     required: true,
   },

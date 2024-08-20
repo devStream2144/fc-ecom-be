@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 dotenv.config({ path: ".env" });
 const routers = require("./routers/routers");
 const errorHandler = require("./middleware/errorHandler");
+require("./constants/index");
 
 const app = express();
 app.use(cors());

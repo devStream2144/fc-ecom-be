@@ -89,7 +89,7 @@ const UserServices = () => {
     try {
       const { id, userUpdatedData } = data;
       const user = await Model.User.updateOne(
-        query.userQuery("UpdateUser", userUpdatedData, id)
+        query.userQuery(global.UpdateUser, userUpdatedData, id)
       );
       if (user) {
         cb(false, 200, user, "User updated successfully!");

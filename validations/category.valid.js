@@ -54,15 +54,21 @@ const schemaValidator = {
 
   product: z.object({
     name: z.string().min(1, "Product name must required!"),
+    description: z.string().optional(),
     price: z.object({
-      original: z.number().min(1, "Price is required!"),
-      discount: z.number().min(1, "Discount is required!"),
+      original: z.number().min(1, "Product price is required!"),
+      discount: z.number().optional(),
     }),
-    quantity: z.string().min(1, "Gmail is required!"),
+    quantity: z.number().min(1, "Gmail is required!"),
     color: z.string().min(1, "Product color is required!"),
-    size: z.string().min(1, "Product size is required!"),
+    size: z.number().min(1, "Product size is required!"),
+    price: z.object({
+      liked: z.number().optional(),
+      disliked: z.number().optional(),
+    }),
+    buyed: z.number().optional(),
     category: z.object({
-      category: z.number().min(1, "Category is required!"),
+      category: z.string().min(1, "Category is required!"),
       subcategory: z
         .array(
           z.object({
@@ -71,6 +77,14 @@ const schemaValidator = {
         )
         .optional(),
     }),
+  }),
+
+  ["product-likes"]: z.object({
+    userId: z.string().min(1, "User ID name must required!"),
+    productId: z.string().min(1, "Product ID name must required!"),
+    liked: z.number().optional(),
+    disliked: z.number().optional(),
+    isDeleted: z.boolean().optional(),
   }),
 };
 
