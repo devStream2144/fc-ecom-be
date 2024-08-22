@@ -3,13 +3,17 @@ const router = express.Router();
 const validation = require("../middleware/schemaValidation");
 const ProductLikesController = require("../controllers/productLikes.controller");
 const authenticator = require("../middleware/authenticator");
+const { LikesAndDislikespaths } = require("../statics/paths");
 
-router.post("/", validation, ProductLikesController.DoLikeOrDisLike);
-router.get(
-  "/:productId",
-  authenticator,
-  ProductLikesController.GetProductLikesAndDislikedOfProduct
-);
-// router.patch("/:id", validation, UserProfileController.UpdateUserProfile);
+LikesAndDislikespaths.forEach(({ controller, method, path, auth, valid }) => {
+  const options = [];
+  if (auth) {
+    options.push(authenticator);
+  }
+  if (valid) {
+    options.push(validation);
+  }
+  router[method](path, ...options, ProductLikesController[controller]);
+});
 
 module.exports = router;

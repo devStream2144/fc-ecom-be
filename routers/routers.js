@@ -5,6 +5,7 @@ const userRoute = require("../routers/user.route");
 const userProfileRoute = require("../routers/userProfile.route");
 const productRoute = require("../routers/product.route");
 const productLikesRoute = require("../routers/productLikes.route");
+const cartRoute = require("../routers/cart.route");
 
 const routers = [
   {
@@ -26,6 +27,10 @@ const routers = [
   {
     path: "/product-likes",
     route: productLikesRoute,
+  },
+  {
+    path: "/cart",
+    route: cartRoute,
   },
 ];
 

@@ -3,9 +3,10 @@ const { AddUserProfileDTO } = require("../DTO/userProfile.dto");
 
 const UserProfileServices = () => {
   const addUserProfile = async (data, next, cb) => {
+    const { body } = data;
     try {
       const userProfile = await new Model.UserProfile(
-        new AddUserProfileDTO(data)
+        new AddUserProfileDTO(body)
       );
       if (userProfile) {
         const result = await userProfile.save();
@@ -23,11 +24,11 @@ const UserProfileServices = () => {
 
   const updateUserProfile = async (data, next, cb) => {
     try {
-      const { id, userProfileUpdatedData } = data;
+      const { id, body } = data;
       const userProfile = await Model.UserProfile.updateOne(
         { _id: id },
         {
-          $set: new AddUserProfileDTO(userProfileUpdatedData),
+          $set: new AddUserProfileDTO(body),
           $currentDate: { lastUpdated: true },
         }
       );

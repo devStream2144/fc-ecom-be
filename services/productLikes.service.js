@@ -7,9 +7,10 @@ const query = require("../DB/queries/index");
 
 const ProductLikesService = () => {
   const doLikeOrDisLike = async (data, next, cb) => {
+    const { body } = data;
     try {
       const product = await new Model.ProductLikes(
-        new AddProductLikesDTO(data)
+        new AddProductLikesDTO(body)
       );
       if (product) {
         const result = await product.save();
@@ -18,7 +19,7 @@ const ProductLikesService = () => {
             false,
             200,
             result,
-            `User ${data.liked ? "liked" : "disliked"} Product!`
+            `User ${body.liked ? "liked" : "disliked"} Product!`
           );
         } else {
           cb(true, 400, [], "Like added failed!");

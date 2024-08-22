@@ -86,6 +86,12 @@ const schemaValidator = {
     disliked: z.number().optional(),
     isDeleted: z.boolean().optional(),
   }),
+
+  cart: z.object({
+    userId: z.string().min(1, "User ID name must required!"),
+    productId: z.string().min(1, "Product ID name must required!"),
+    isDeleted: z.boolean().optional(),
+  }),
 };
 
 module.exports = schemaValidator;

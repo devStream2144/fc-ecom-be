@@ -1,28 +1,36 @@
 const productLikesService = require("../services/productLikes.service");
+const { LikesAndDislikespaths } = require("../statics/paths");
 
-const ProductLikesController = {
-  DoLikeOrDisLike: (req, res, next) => {
-    const data = req.body;
-    productLikesService.doLikeOrDisLike(
-      data,
-      next,
-      (err, statusCode, data, message) => {
-        res.status(statusCode).json({ err: err, data: data, message });
-      }
-    );
-  },
-
-  GetProductLikesAndDislikedOfProduct: (req, res, next) => {
-    const roles = req.roles;
-    const id = req.params.productId;
-    productLikesService.getProductLikesAndDislikesOfProduct(
-      { roles, id },
-      next,
-      (err, statusCode, data, message) => {
-        res.status(statusCode).json({ err: err, data: data, message });
-      }
-    );
-  },
+const GetLikesAndDislikesServices = (serviceName, data, next, cb) => {
+  return productLikesService[serviceName](
+    data,
+    next,
+    (err, statusCode, data, message) => {
+      cb({ err, statusCode, data, message });
+    }
+  );
 };
+
+const ProductLikesController = LikesAndDislikespaths.reduce(
+  (controllers, { controller, service }) => {
+    controllers[controller] = async (req, res, next) => {
+      const roles = req.roles;
+      GetLikesAndDislikesServices(
+        service,
+        { body: req.body, id: req.params.id || "", roles },
+        next,
+        (response) => {
+          res.status(response.statusCode).json({
+            err: response.err,
+            data: response.data,
+            message: response.message,
+          });
+        }
+      );
+    };
+    return controllers;
+  },
+  {}
+);
 
 module.exports = ProductLikesController;

@@ -7,7 +7,7 @@ const query = require("../DB/queries/index");
 const UserServices = () => {
   const userLogin = async (data, next, cb) => {
     try {
-      const user = await Model.User.findOne(data);
+      const user = await Model.User.findOne(data.body);
       console.log("user : ", user);
       if (user) {
         const token = await jwt.sign(
@@ -28,14 +28,14 @@ const UserServices = () => {
       const isUsernameExist = await checkDuplicates(
         "User",
         "username",
-        data.username
+        data.body.username
       );
       console.log("isUsernameExist : ", isUsernameExist);
       if (isUsernameExist) {
         cb(true, 409, isUsernameExist, "Username is exist!");
         return;
       }
-      const user = await new Model.User(new AddUserDTO(data));
+      const user = await new Model.User(new AddUserDTO(data.body));
       if (user) {
         const result = await user.save();
         if (result) {
@@ -52,10 +52,9 @@ const UserServices = () => {
 
   const getUsers = async (data, next, cb) => {
     try {
-      const roles = data;
       const users = await Model.User.aggregate(query.userQuery("GetUsers"));
       if (users.length) {
-        const usersData = GetUserDTO.fromArray(users, roles);
+        const usersData = GetUserDTO.fromArray(users, data.roles);
         const finalData = usersData.map((userDTO) => userDTO.toObject());
         cb(false, 200, finalData, "All users fetched successfully!");
       } else {
@@ -74,7 +73,7 @@ const UserServices = () => {
         cb(
           false,
           200,
-          new GetUserDTO(user, roles),
+          new AddUserDTO(user, roles),
           "User fetched successfully!"
         );
       } else {
@@ -87,9 +86,9 @@ const UserServices = () => {
 
   const updateUser = async (data, next, cb) => {
     try {
-      const { id, userUpdatedData } = data;
+      const { id, body } = data;
       const user = await Model.User.updateOne(
-        query.userQuery(global.UpdateUser, userUpdatedData, id)
+        query.userQuery(global.UpdateUser, body, id)
       );
       if (user) {
         cb(false, 200, user, "User updated successfully!");
@@ -117,10 +116,10 @@ const UserServices = () => {
 
   const addNewRoles = async (data, next, cb) => {
     try {
-      const { id, roles, rolesArr } = data;
+      const { id, roles, body } = data;
       const foundedUser = await Model.User.findById(id);
       if (foundedUser) {
-        const updatedRoles = foundedUser.roles.concat(rolesArr);
+        const updatedRoles = foundedUser.roles.concat(body);
         const isRolesUpdated = await Model.User.updateOne(
           { _id: id },
           {
@@ -143,11 +142,11 @@ const UserServices = () => {
 
   const deleteRoles = async (data, next, cb) => {
     try {
-      const { id, roles, roleIds } = data;
+      const { id, roles, body } = data;
       const foundedUser = await Model.User.findById(id);
       if (foundedUser) {
         const filteredRole = foundedUser.roles.filter(
-          (item) => !roleIds.includes(item.id)
+          (item) => !body.includes(item.id)
         );
         const isRolesUpdated = await Model.User.updateOne(
           { _id: id },

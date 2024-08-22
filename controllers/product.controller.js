@@ -1,58 +1,39 @@
 const ProductsService = require("../services/product.service");
+const { productPaths } = require("../statics/paths");
 
-const ProductController = {
-  AddProduct: (req, res, next) => {
-    const data = req.body;
-    ProductsService.addProduct(data, next, (err, statusCode, data, message) => {
-      res.status(statusCode).json({ err: err, data: data, message });
-    });
-  },
-
-  GetProducts: (req, res, next) => {
-    const data = req.roles;
-    ProductsService.getProducts(
-      data,
-      next,
-      (err, statusCode, data, message) => {
-        res.status(statusCode).json({ err: err, data: data, message });
-      }
-    );
-  },
-
-  GetProductById: (req, res, next) => {
-    const id = req.params.id;
-    const roles = req.roles;
-    ProductsService.getProductById(
-      { id, roles },
-      next,
-      (err, statusCode, data, message) => {
-        res.status(statusCode).json({ err: err, data: data, message });
-      }
-    );
-  },
-
-  UpdateProduct: (req, res, next) => {
-    const id = req.params.id;
-    const data = req.body;
-    ProductsService.updateProduct(
-      { id, productUpdatedData: data },
-      next,
-      (err, statusCode, data, message) => {
-        res.status(statusCode).json({ err: err, data: data, message });
-      }
-    );
-  },
-
-  DeleteProduct: (req, res, next) => {
-    const id = req.params.id;
-    ProductsService.deleteProduct(
-      { id },
-      next,
-      (err, statusCode, data, message) => {
-        res.status(statusCode).json({ err: err, data: data, message });
-      }
-    );
-  },
+const GetProductServices = (serviceName, data, next, cb) => {
+  return ProductsService[serviceName](
+    data,
+    next,
+    (err, statusCode, data, message) => {
+      cb({ err, statusCode, data, message });
+    }
+  );
 };
+
+const ProductController = productPaths.reduce(
+  (controllers, { controller, service }) => {
+    controllers[controller] = async (req, res, next) => {
+      GetProductServices(
+        service,
+        {
+          body: req.body || {},
+          id: req.params.id || "",
+          roles: req.roles || [],
+        },
+        next,
+        (response) => {
+          res.status(response.statusCode).json({
+            err: response.err,
+            data: response.data,
+            message: response.message,
+          });
+        }
+      );
+    };
+    return controllers;
+  },
+  {}
+);
 
 module.exports = ProductController;

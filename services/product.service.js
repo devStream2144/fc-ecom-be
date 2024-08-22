@@ -4,8 +4,9 @@ const query = require("../DB/queries");
 
 const ProductsService = () => {
   const addProduct = async (data, next, cb) => {
+    const { body } = data;
     try {
-      const product = await new Model.Product(new AddProductDTO(data));
+      const product = await new Model.Product(new AddProductDTO(body));
       if (product) {
         const result = await product.save();
         if (result) {
@@ -63,13 +64,9 @@ const ProductsService = () => {
 
   const updateProduct = async (data, next, cb) => {
     try {
-      const { id, productUpdatedData } = data;
+      const { id, body } = data;
       const product = await Model.Product.updateOne(
-        query.productQuery(
-          "UpdateProduct",
-          new AddProductDTO(productUpdatedData),
-          id
-        )
+        query.productQuery("UpdateProduct", new AddProductDTO(body), id)
       );
       if (product) {
         cb(false, 200, product, "Product updated successfully!");
