@@ -1,11 +1,11 @@
 const Model = require("../models/models");
-const { z } = require("zod");
 const { GetCategoryDTO, AddCategoryDTO } = require("../DTO/category.dto.js");
 
 const CategoryService = () => {
   const addCategory = async (data, next, cb) => {
     try {
-      const category = await new Model.Category(new AddCategoryDTO(data));
+      const { body } = data;
+      const category = await new Model.Category(new AddCategoryDTO(body));
       if (category) {
         const result = await category.save();
         if (result) {
@@ -53,11 +53,11 @@ const CategoryService = () => {
 
   const updateCategory = async (data, next, cb) => {
     try {
-      const { id, categoryUpdatedData } = data;
+      const { id, body } = data;
       const category = await Model.Category.updateOne(
         { _id: id },
         {
-          $set: categoryUpdatedData,
+          $set: body,
           $currentDate: { lastUpdated: true },
         }
       );

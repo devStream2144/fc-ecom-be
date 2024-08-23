@@ -1,6 +1,12 @@
 const mongoose = require("mongoose");
 
 const profileSchema = mongoose.Schema({
+  userProfileId: {
+    type: String,
+    default: function () {
+      return this._id.toString();
+    },
+  },
   userId: {
     type: String,
     required: true,

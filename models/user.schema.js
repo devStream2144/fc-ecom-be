@@ -1,6 +1,12 @@
 const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema({
+  userId: {
+    type: String,
+    default: function () {
+      return this._id.toString();
+    },
+  },
   fullname: {
     type: String,
     required: true,

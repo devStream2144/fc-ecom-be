@@ -1,62 +1,39 @@
 const CategoryService = require("../services/category.service");
+const { categoriesPaths } = require("../statics/paths");
 
-const CategoryController = {
-  AddCategory: (req, res, next) => {
-    const data = req.body;
-    console.log("Data controller : ", data);
-    CategoryService.addCategory(
-      data,
-      next,
-      (err, statusCode, data, message) => {
-        res.status(statusCode).json({ err: err, data: data, message });
-      }
-    );
-  },
-
-  GetCategories: (req, res, next) => {
-    const data = req.body;
-    CategoryService.getCategories(
-      null,
-      next,
-      (err, statusCode, data, message) => {
-        res.status(statusCode).json({ err: err, data: data, message });
-      }
-    );
-  },
-
-  GetCategoryById: (req, res, next) => {
-    const id = req.params.id;
-    CategoryService.getCategoryById(
-      { id },
-      next,
-      (err, statusCode, data, message) => {
-        res.status(statusCode).json({ err: err, data: data, message });
-      }
-    );
-  },
-
-  UpdateCategory: (req, res, next) => {
-    const id = req.params.id;
-    const data = req.body;
-    CategoryService.updateCategory(
-      { id, categoryUpdatedData: data },
-      next,
-      (err, statusCode, data, message) => {
-        res.status(statusCode).json({ err: err, data: data, message });
-      }
-    );
-  },
-
-  DeletedCategory: (req, res, next) => {
-    const id = req.params.id;
-    CategoryService.deletedCategory(
-      { id },
-      next,
-      (err, statusCode, data, message) => {
-        res.status(statusCode).json({ err: err, data: data, message });
-      }
-    );
-  },
+const GetCategoryServices = (serviceName, data, next, cb) => {
+  return CategoryService[serviceName](
+    data,
+    next,
+    (err, statusCode, data, message) => {
+      cb({ err, statusCode, data, message });
+    }
+  );
 };
+
+const CategoryController = categoriesPaths.reduce(
+  (controllers, { controller, service }) => {
+    controllers[controller] = async (req, res, next) => {
+      GetCategoryServices(
+        service,
+        {
+          body: req.body || {},
+          id: req.params.id || "",
+          roles: req.roles || [],
+        },
+        next,
+        (response) => {
+          res.status(response.statusCode).json({
+            err: response.err,
+            data: response.data,
+            message: response.message,
+          });
+        }
+      );
+    };
+    return controllers;
+  },
+  {}
+);
 
 module.exports = CategoryController;

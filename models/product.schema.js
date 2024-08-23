@@ -2,6 +2,12 @@ const mongoose = require("mongoose");
 const categorySchema = require("../models/category.schema");
 
 const productSchema = mongoose.Schema({
+  productId: {
+    type: String,
+    default: function () {
+      return this._id.toString();
+    },
+  },
   name: {
     type: String,
     required: true,

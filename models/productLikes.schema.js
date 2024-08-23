@@ -1,6 +1,12 @@
 const mongoose = require("mongoose");
 
 const productLikesSchema = mongoose.Schema({
+  productLikesId: {
+    type: String,
+    default: function () {
+      return this._id.toString();
+    },
+  },
   userId: {
     type: String,
     required: true,

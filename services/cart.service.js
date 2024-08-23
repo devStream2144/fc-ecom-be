@@ -1,11 +1,12 @@
 const Model = require("../models/models");
-const { AddToCartDTO } = require("../DTO/cart.dto");
+const { AddToCartDTO, GetCartDTO } = require("../DTO/cart.dto");
 const query = require("../DB/queries/index");
 
 const CartService = () => {
   const addToCart = async (data, next, cb) => {
+    const { body } = data;
     try {
-      const cart = await new Model.CartSchema(new AddToCartDTO(data));
+      const cart = await new Model.CartSchema(new AddToCartDTO(body));
       if (cart) {
         const result = await cart.save();
         if (result) {
@@ -20,8 +21,36 @@ const CartService = () => {
     }
   };
 
+  const getCartItemByUser = async (data, next, cb) => {
+    const { id } = data;
+    try {
+      const cart = await Model.CartSchema.aggregate([
+        {
+          $match: { userId: id }, // Exclude deleted records
+        },
+        {
+          $lookup: {
+            from: "products",
+            localField: "productId",
+            foreignField: "productId",
+            as: "productDetails",
+          },
+        },
+      ]);
+      const cartArr = GetCartDTO.fromArray(cart);
+      const cartData = cartArr.map((cartDto) => cartDto.toObject());
+      if (cart) {
+        cb(false, 200, cartData, `Cart item get successfully!`);
+      }
+    } catch (err) {
+      console.log("ERROR : ", err);
+      next(err);
+    }
+  };
+
   return {
     addToCart,
+    getCartItemByUser,
   };
 };
 
