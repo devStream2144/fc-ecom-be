@@ -52,6 +52,7 @@ const UserServices = () => {
 
   const getUsers = async (data, next, cb) => {
     try {
+      console.log("GetUsers Data : ", data);
       const users = await Model.User.aggregate(query.userQuery("GetUsers"));
       if (users.length) {
         const usersData = GetUserDTO.fromArray(users, data.roles);
@@ -87,8 +88,14 @@ const UserServices = () => {
   const updateUser = async (data, next, cb) => {
     try {
       const { id, body } = data;
+      console.log("update user data : ", data);
+
       const user = await Model.User.updateOne(
-        query.userQuery(global.UpdateUser, body, id)
+        { _id: id },
+        {
+          $set: body,
+          $currentDate: { lastUpdated: true },
+        }
       );
       if (user) {
         cb(false, 200, user, "User updated successfully!");

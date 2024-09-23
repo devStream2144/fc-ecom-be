@@ -1,5 +1,9 @@
 const Model = require("../models/models");
-const { GetProductDTO, AddProductDTO } = require("../DTO/product.dto");
+const {
+  GetProductDTO,
+  AddProductDTO,
+  GetUploadedProductImageDTO,
+} = require("../DTO/product.dto");
 const query = require("../DB/queries");
 
 const ProductsService = () => {
@@ -92,12 +96,47 @@ const ProductsService = () => {
     }
   };
 
+  const uploadProductImages = async (data, next, cb) => {
+    const { body, id } = data;
+    try {
+      const product = await Model.Product.findOne({ _id: id });
+      if (!product) {
+        cb(false, 404, [], "Product not found!");
+        return;
+      }
+      const productImages = GetUploadedProductImageDTO.fromArray(body, []);
+      const finalData = productImages.map((productDTO) =>
+        productDTO.toObject()
+      );
+      console.log("finalData image data : ", finalData);
+
+      const productImage = [...product.productImages, ...finalData];
+
+      const updateResult = await Model.Product.updateOne(
+        { _id: id },
+        {
+          $set: { productImages: productImage },
+          $currentDate: { lastUpdated: true },
+        }
+      );
+
+      if (updateResult.modifiedCount > 0) {
+        cb(false, 200, updateResult, "Product images uploaded successfully!");
+      } else {
+        cb(false, 200, [], "Product images upload failed!");
+      }
+    } catch (err) {
+      next(err);
+    }
+  };
+
   return {
     addProduct,
     getProducts,
     getProductById,
     updateProduct,
     deleteProduct,
+    uploadProductImages,
   };
 };
 

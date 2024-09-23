@@ -4,8 +4,8 @@ const protectedRoutes = process.env.PROTECTED_ROUTES.split(" ");
 const authorizedRoles = process.env.ROLE_VISIBLITY.split(" ");
 
 const authenticator = async (req, res, next) => {
-  console.log("req.baseUrl : ", req.baseUrl);
-  console.log("req.route : ", req.route.stack);
+  // console.log("req.baseUrl : ", req.baseUrl);
+  // console.log("req.route : ", req.route.stack);
   try {
     const token = req.headers.authorization;
     var decoded = await jwt.verify(token, process.env.JWT_TOKEY_KEY);

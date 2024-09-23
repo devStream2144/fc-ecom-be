@@ -30,6 +30,7 @@ class AddProductDTO {
 
 class GetProductDTO {
   productId = "";
+  productImages = [];
   name = "";
   description = "";
   price = {
@@ -49,6 +50,7 @@ class GetProductDTO {
 
   constructor(data, roles) {
     this.productId = data._id || "";
+    this.productImages = data.productImages || [];
     this.name = data.name || "";
     this.description = data.description || "";
     this.price = data.price || "";
@@ -69,6 +71,7 @@ class GetProductDTO {
   toObject() {
     return {
       productId: this.productId,
+      productImages: this.productImages,
       name: this.name,
       description: this.description,
       price: this.price,
@@ -106,7 +109,7 @@ class GetProductLikesAndDislikesDTO {
     this.disliked = data.disliked;
     this.isDeleted = data.isDeleted;
     const roleAuth = roles?.some(({ role }) =>
-      process.env.ROLE_VISIBLITY.split(" ").includes(role)
+      process.env.ROLE_VISIBLITY.split(" ").os(role)
     );
     if (roleAuth) {
     }
@@ -148,9 +151,48 @@ class AddProductLikesDTO {
   }
 }
 
+class GetUploadedProductImageDTO {
+  originalname = "";
+  mimetype = "";
+  filename = "";
+  size = 0;
+
+  constructor(data, roles) {
+    this.originalname = data.originalname || "";
+    this.mimetype = data.mimetype || [];
+    this.filename = data.filename || "";
+    this.size = data.size || "";
+
+    const roleAuth = roles?.some(({ role }) =>
+      process.env.ROLE_VISIBLITY.split(" ").includes(role)
+    );
+    if (roleAuth) {
+    }
+  }
+
+  toObject() {
+    return {
+      originalname: this.originalname,
+      mimetype: this.mimetype,
+      filename: this.filename,
+      size: this.size,
+    };
+  }
+
+  static fromArray(data = [], roleArr) {
+    this.roles = roleArr;
+    if (!Array.isArray(data)) {
+      throw new Error("Invalid data format, expected an array");
+    }
+
+    return data.map((item) => new GetUploadedProductImageDTO(item, roleArr));
+  }
+}
+
 module.exports = {
   AddProductDTO,
   GetProductDTO,
   AddProductLikesDTO,
   GetProductLikesAndDislikesDTO,
+  GetUploadedProductImageDTO,
 };

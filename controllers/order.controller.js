@@ -1,12 +1,11 @@
-const CategoryService = require("../services/category.service");
-const { CategoriesPaths } = require("../statics/paths");
-
+const OrderService = require("../services/order.service");
+const { OrderPaths } = require("../statics/paths");
 const ControllerFactory = require("../controllers/controllerFactory");
 
-const CategoryController = ControllerFactory(CategoriesPaths, CategoryService);
+const OrderController = ControllerFactory(OrderPaths, OrderService);
 
-// const GetCategoryServices = (serviceName, data, next, cb) => {
-//   return CategoryService[serviceName](
+// const GetOrderServices = (serviceName, data, next, cb) => {
+//   return OrderService[serviceName](
 //     data,
 //     next,
 //     (err, statusCode, data, message) => {
@@ -15,10 +14,10 @@ const CategoryController = ControllerFactory(CategoriesPaths, CategoryService);
 //   );
 // };
 
-// const CategoryController = CategoriesPaths.reduce(
+// const OrderController = OrderPaths.reduce(
 //   (controllers, { controller, service }) => {
 //     controllers[controller] = async (req, res, next) => {
-//       GetCategoryServices(
+//       GetOrderServices(
 //         service,
 //         {
 //           body: req.body || {},
@@ -40,4 +39,4 @@ const CategoryController = ControllerFactory(CategoriesPaths, CategoryService);
 //   {}
 // );
 
-module.exports = CategoryController;
+module.exports = OrderController;

@@ -6,6 +6,7 @@ const userProfileRoute = require("../routers/userProfile.route");
 const productRoute = require("../routers/product.route");
 const productLikesRoute = require("../routers/productLikes.route");
 const cartRoute = require("../routers/cart.route");
+const orderRoute = require("../routers/order.route");
 
 const routers = [
   {
@@ -31,6 +32,10 @@ const routers = [
   {
     path: "/cart",
     route: cartRoute,
+  },
+  {
+    path: "/order",
+    route: orderRoute,
   },
 ];
 

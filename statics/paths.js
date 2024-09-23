@@ -15,6 +15,14 @@ const LikesAndDislikespaths = [
     auth: false,
     valid: false,
   },
+  {
+    controller: "RemoveProductLikeOrDislike",
+    service: "removeProductLikeOrDislike",
+    method: "delete",
+    path: "/",
+    auth: false,
+    valid: false,
+  },
 ];
 
 const UserPaths = [
@@ -31,7 +39,7 @@ const UserPaths = [
     service: "getUsers",
     method: "get",
     path: "/",
-    auth: false,
+    auth: true,
     valid: false,
   },
   {
@@ -55,8 +63,8 @@ const UserPaths = [
     service: "updateUser",
     method: "patch",
     path: "/:id",
-    auth: false,
-    valid: false,
+    auth: true,
+    valid: true,
   },
   {
     controller: "DeletedUser",
@@ -84,7 +92,7 @@ const UserPaths = [
   },
 ];
 
-userProfilepath = [
+UserProfilepath = [
   {
     controller: "AddUserProfile",
     service: "addUserProfile",
@@ -103,7 +111,7 @@ userProfilepath = [
   },
 ];
 
-const productPaths = [
+const ProductPaths = [
   {
     controller: "AddProduct",
     service: "addProduct",
@@ -144,15 +152,23 @@ const productPaths = [
     auth: true,
     valid: false,
   },
+  {
+    controller: "UploadProductImages",
+    service: "uploadProductImages",
+    method: "patch",
+    path: "/upload-images/:id",
+    auth: false,
+    valid: false,
+  },
 ];
 
-const categoriesPaths = [
+const CategoriesPaths = [
   {
     controller: "AddCategory",
     service: "addCategory",
     method: "post",
     path: "/",
-    auth: false,
+    auth: true,
     valid: true,
   },
   {
@@ -160,7 +176,7 @@ const categoriesPaths = [
     service: "getCategories",
     method: "get",
     path: "/",
-    auth: false,
+    auth: true,
     valid: false,
   },
   {
@@ -168,7 +184,7 @@ const categoriesPaths = [
     service: "getCategoryById",
     method: "get",
     path: "/:id",
-    auth: false,
+    auth: true,
     valid: false,
   },
   {
@@ -176,8 +192,8 @@ const categoriesPaths = [
     service: "updateCategory",
     method: "patch",
     path: "/:id",
-    auth: false,
-    valid: false,
+    auth: true,
+    valid: true,
   },
   {
     controller: "DeletedCategory",
@@ -195,7 +211,7 @@ const CartsPaths = [
     service: "addToCart",
     method: "post",
     path: "/",
-    auth: false,
+    auth: true,
     valid: true,
   },
   {
@@ -206,37 +222,41 @@ const CartsPaths = [
     auth: true,
     valid: false,
   },
-  // {
-  //   controller: "GetCategoryById",
-  //   service: "getCategoryById",
-  //   method: "get",
-  //   path: "/:id",
-  //   auth: false,
-  //   valid: false,
-  // },
-  // {
-  //   controller: "UpdateCategory",
-  //   service: "updateCategory",
-  //   method: "patch",
-  //   path: "/:id",
-  //   auth: false,
-  //   valid: false,
-  // },
-  // {
-  //   controller: "DeletedCategory",
-  //   service: "deletedCategory",
-  //   method: "delete",
-  //   path: "/:id",
-  //   auth: true,
-  //   valid: false,
-  // },
+  {
+    controller: "RemoveItemFromCart",
+    service: "removeItemFromCart",
+    method: "delete",
+    path: "/:id",
+    auth: true,
+    valid: false,
+  },
+];
+
+const OrderPaths = [
+  {
+    controller: "CreateOrder",
+    service: "createOrder",
+    method: "post",
+    path: "/",
+    auth: true,
+    valid: false,
+  },
+  {
+    controller: "GetOrders",
+    service: "getOrders",
+    method: "get",
+    path: "/",
+    auth: true,
+    valid: false,
+  },
 ];
 
 module.exports = {
   LikesAndDislikespaths,
   UserPaths,
-  userProfilepath,
-  productPaths,
-  categoriesPaths,
+  UserProfilepath,
+  ProductPaths,
+  CategoriesPaths,
   CartsPaths,
+  OrderPaths,
 };

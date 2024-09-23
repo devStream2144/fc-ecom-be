@@ -8,6 +8,11 @@ const productSchema = mongoose.Schema({
       return this._id.toString();
     },
   },
+  productImages: {
+    type: Array,
+    required: true,
+    default: [],
+  },
   name: {
     type: String,
     required: true,

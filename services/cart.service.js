@@ -48,9 +48,23 @@ const CartService = () => {
     }
   };
 
+  const removeItemFromCart = async (data, next, cb) => {
+    const { id } = data;
+    try {
+      const cart = await Model.CartSchema.deleteOne({ _id: id });
+      if (cart) {
+        cb(false, 200, cart, `Cart item id deleted!`);
+      }
+    } catch (err) {
+      console.log("ERROR : ", err);
+      next(err);
+    }
+  };
+
   return {
     addToCart,
     getCartItemByUser,
+    removeItemFromCart,
   };
 };
 

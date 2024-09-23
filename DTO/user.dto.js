@@ -42,12 +42,14 @@ class GetUserDTO {
 }
 
 class AddUserDTO {
+  id = "";
   fullname = "";
   username = "";
   password = "";
   roles = [];
 
   constructor(data) {
+    this.id = data.id || "";
     this.fullname = data.fullname || "";
     this.username = data.username || "";
     this.password = data.password || "";

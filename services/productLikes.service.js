@@ -55,9 +55,24 @@ const ProductLikesService = () => {
     }
   };
 
+  const removeProductLikeOrDislike = async (data, next, cb) => {
+    try {
+      const { body } = data;
+      const product = await Model.ProductLikes.deleteOne(body);
+      if (product) {
+        cb(false, 200, product, "Product lieks deleted successfully!");
+      } else {
+        cb(true, 204, [], "Product likes not deleted!");
+      }
+    } catch (err) {
+      next(err);
+    }
+  };
+
   return {
     doLikeOrDisLike,
     getProductLikesAndDislikesOfProduct,
+    removeProductLikeOrDislike,
   };
 };
 

@@ -92,6 +92,13 @@ const schemaValidator = {
     productId: z.string().min(1, "Product ID name must required!"),
     isDeleted: z.boolean().optional(),
   }),
+
+  order: z.object({
+    userId: z.string().min(1, "User ID name must required!"),
+    productId: z.string().min(1, "Product ID name must required!"),
+    total_amount: z.number().min(1, "Amount required!"),
+    status: z.string().min(1, "Status required!"),
+  }),
 };
 
 module.exports = schemaValidator;

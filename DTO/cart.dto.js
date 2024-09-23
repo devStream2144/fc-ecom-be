@@ -11,12 +11,14 @@ class AddToCartDTO {
 }
 
 class GetCartDTO {
+  cartItemId = "";
   userId = "";
   productId = "";
   isDeleted = false;
   productDetails = {};
 
   constructor(data, roles) {
+    this.cartItemId = data._id || "";
     this.userId = data.userId || "";
     this.productId = data.productId || "";
     this.productDetails = data.productDetails[0] || {};
@@ -30,6 +32,7 @@ class GetCartDTO {
 
   toObject() {
     return {
+      cartItemId: this.cartItemId,
       userId: this.userId,
       productId: this.productId,
       isDeleted: this.isDeleted,
