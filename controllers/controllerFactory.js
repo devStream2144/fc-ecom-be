@@ -3,12 +3,9 @@ const GetService = (Service, serviceName, data, next, cb) => {
     cb({ err, statusCode, data, message });
   });
 };
-
 const ControllerFactory = (Paths, Service) => {
-  return Paths.reduce((controllers, { controller, service }) => {
+  return Paths?.reduce((controllers, { controller, service }) => {
     controllers[controller] = async (req, res, next) => {
-      console.log("req.body : ", req.body);
-
       GetService(
         Service,
         service,
@@ -16,6 +13,7 @@ const ControllerFactory = (Paths, Service) => {
           body: req.body || {},
           id: req.params.id || "",
           roles: req.roles || [],
+          req: req,
         },
         next,
         (response) => {

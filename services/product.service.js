@@ -97,14 +97,16 @@ const ProductsService = () => {
   };
 
   const uploadProductImages = async (data, next, cb) => {
-    const { body, id } = data;
+    const { body, req, id } = data;
+    console.log("body, id : ", body, id, req);
+
     try {
       const product = await Model.Product.findOne({ _id: id });
       if (!product) {
         cb(false, 404, [], "Product not found!");
         return;
       }
-      const productImages = GetUploadedProductImageDTO.fromArray(body, []);
+      const productImages = GetUploadedProductImageDTO.fromArray(req.files, []);
       const finalData = productImages.map((productDTO) =>
         productDTO.toObject()
       );

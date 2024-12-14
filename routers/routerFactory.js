@@ -1,10 +1,11 @@
 const express = require("express");
 const validation = require("../middleware/schemaValidation");
 const authenticator = require("../middleware/authenticator");
+const upload = require("../middleware/multer");
 
 const createRouter = (Paths, Controller) => {
   const router = express.Router();
-  Paths.forEach(({ controller, method, path, auth, valid }) => {
+  Paths?.forEach(({ controller, method, path, auth, valid }) => {
     const options = [];
     if (auth) {
       options.push(authenticator);
@@ -12,9 +13,11 @@ const createRouter = (Paths, Controller) => {
     if (valid) {
       options.push(validation);
     }
+    if (controller === "UploadProductImages") {
+      options.push(upload.array("image"));
+    }
     router[method](path, ...options, Controller[controller]);
   });
   return router;
 };
-
 module.exports = createRouter;

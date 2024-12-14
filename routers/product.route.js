@@ -1,29 +1,196 @@
-const express = require("express");
-const router = express.Router();
-const validator = require("../middleware/schemaValidation");
-const ProductController = require("../controllers/product.controller");
-const authenticator = require("../middleware/authenticator");
-const { ProductPaths } = require("../statics/paths");
-const upload = require("../middleware/multer");
+const createRouter = require("../routers/routerFactory.js");
+const Controller = require("../controllers/product.controller.js");
 
-ProductPaths.forEach(({ controller, method, path, auth, valid }) => {
-  const options = [];
-  if (auth) {
-    options.push(authenticator);
-  }
-  if (valid) {
-    options.push(validator);
-  }
-  if (controller === "UploadProductImages") {
-    options.push(upload.array("image"));
-  }
-  router[method](path, ...options, ProductController[controller]);
-});
+const ProductPaths = [
+  {
+    controller: "AddProduct",
+    service: "addProduct",
+    method: "post",
+    path: "/",
+    auth: false,
+    valid: true,
+    /**
+     * @swagger
+     * /product:
+     *   post:
+     *     summary: Add a new product
+     *     tags: [Products]
+     *     security: []
+     *     responses:
+     *       201:
+     *         description: Product created successfully
+     *       400:
+     *         description: Invalid input
+     */
+  },
+  {
+    controller: "GetProducts",
+    service: "getProducts",
+    method: "get",
+    path: "/",
+    auth: true,
+    valid: false,
+    /**
+     * @swagger
+     * /product:
+     *   get:
+     *     summary: Retrieve all product
+     *     tags: [Products]
+     *     security:
+     *       - ApiKeyAuth: []  # Requires token authentication
+     *     responses:
+     *       200:
+     *         description: Product data
+     *       404:
+     *         description: Product not found
+     */
+  },
+  {
+    controller: "GetProductById",
+    service: "getProductById",
+    method: "get",
+    path: "/:id",
+    auth: true,
+    valid: false,
+    /**
+     * @swagger
+     * /product/{id}:
+     *   get:
+     *     summary: Retrieve a product by ID
+     *     tags: [Products]
+     *     security:
+     *       - ApiKeyAuth: []  # Requires token authentication
+     *     parameters:
+     *       - in: path
+     *         name: id
+     *         required: true
+     *         schema:
+     *           type: string
+     *         description: ID of the product
+     *     responses:
+     *       200:
+     *         description: Product data
+     *       404:
+     *         description: Product not found
+     */
+  },
+  {
+    controller: "UpdateProduct",
+    service: "updateProduct",
+    method: "patch",
+    path: "/:id",
+    auth: true,
+    valid: false,
+    /**
+     * @swagger
+     * /product/{id}:
+     *   patch:
+     *     summary: Update a product
+     *     tags: [Products]
+     *     security:
+     *       - ApiKeyAuth: []  # Requires token authentication
+     *     parameters:
+     *       - in: path
+     *         name: id
+     *         required: true
+     *         schema:
+     *           type: string
+     *         description: ID of the product to update
+     *     requestBody:
+     *       description: Updated product data
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             type: object
+     *     responses:
+     *       200:
+     *         description: Product updated successfully
+     *       400:
+     *         description: Invalid input
+     */
+  },
+  {
+    controller: "DeleteProduct",
+    service: "deleteProduct",
+    method: "delete",
+    path: "/:id",
+    auth: true,
+    valid: false,
+    /**
+     * @swagger
+     * /product/{id}:
+     *   delete:
+     *     summary: Delete a product by ID
+     *     tags: [Products]
+     *     security:
+     *       - ApiKeyAuth: []  # Requires token authentication
+     *     parameters:
+     *       - in: path
+     *         name: id
+     *         required: true
+     *         schema:
+     *           type: string
+     *         description: ID of the product to delete
+     *     responses:
+     *       200:
+     *         description: Product deleted successfully
+     *       404:
+     *         description: Product not found
+     */
+  },
+  {
+    controller: "UploadProductImages",
+    service: "uploadProductImages",
+    method: "patch",
+    path: "/upload-images/:id",
+    auth: false,
+    valid: false,
+    /**
+     * @swagger
+     * /product/upload-images/{id}:
+     *   patch:
+     *     summary: Upload images for a product
+     *     tags: [Products]
+     *     security: []
+     *     parameters:
+     *       - in: path
+     *         name: id
+     *         required: true
+     *         schema:
+     *           type: string
+     *         description: ID of the product
+     *     requestBody:
+     *       description: Array of images to upload
+     *       required: true
+     *       content:
+     *         multipart/form-data:
+     *           schema:
+     *             type: object
+     *             properties:
+     *               image:
+     *                 type: array
+     *                 items:
+     *                   type: string
+     *                   format: binary
+     *     responses:
+     *       200:
+     *         description: Images uploaded successfully
+     *       400:
+     *         description: Invalid input
+     */
+  },
+];
 
-// router.post("/upload-profile", upload.single("image"), (req, res) => {
-//   res
-//     .status(200)
-//     .json({ message: "File uploaded successfully", filename: req.filename });
-// });
+const controller = Controller(ProductPaths);
 
-module.exports = router;
+const route = createRouter(ProductPaths, controller);
+
+module.exports = route;
+
+/**
+ * @swagger
+ * tags:
+ *   name: Products
+ *   description: API for managing products
+ */

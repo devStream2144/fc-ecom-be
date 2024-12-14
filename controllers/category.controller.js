@@ -1,9 +1,19 @@
 const CategoryService = require("../services/category.service");
-const { CategoriesPaths } = require("../statics/paths");
-
 const ControllerFactory = require("../controllers/controllerFactory");
 
-const CategoryController = ControllerFactory(CategoriesPaths, CategoryService);
+const Controller = (Paths) => {
+  const controller = ControllerFactory(Paths, CategoryService);
+  return controller;
+};
+
+module.exports = Controller;
+
+// const CategoryService = require("../services/category.service");
+// const { CategoriesPaths } = require("../statics/paths");
+
+// const ControllerFactory = require("../controllers/controllerFactory");
+
+// const CategoryController = ControllerFactory(CategoriesPaths, CategoryService);
 
 // const GetCategoryServices = (serviceName, data, next, cb) => {
 //   return CategoryService[serviceName](
@@ -40,4 +50,4 @@ const CategoryController = ControllerFactory(CategoriesPaths, CategoryService);
 //   {}
 // );
 
-module.exports = CategoryController;
+// module.exports = CategoryController;

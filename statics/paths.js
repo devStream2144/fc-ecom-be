@@ -92,7 +92,7 @@ const UserPaths = [
   },
 ];
 
-UserProfilepath = [
+const UserProfilepath = [
   {
     controller: "AddUserProfile",
     service: "addUserProfile",
@@ -246,6 +246,14 @@ const OrderPaths = [
     service: "getOrders",
     method: "get",
     path: "/",
+    auth: true,
+    valid: false,
+  },
+  {
+    controller: "GetOrder",
+    service: "getOrder",
+    method: "get",
+    path: "/:id",
     auth: true,
     valid: false,
   },
